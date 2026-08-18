@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   initNavCloseOnNavigate();
+  initAboutVideoFallback();
   initGallerySlider();
   initReportError();
 });
@@ -12,13 +13,79 @@ function initNavCloseOnNavigate() {
 
   var collapse = bootstrap.Collapse.getOrCreateInstance(nav, { toggle: false });
 
-  nav.querySelectorAll(".nav-link").forEach(function (link) {
-    link.addEventListener("click", function () {
-      if (nav.classList.contains("show")) {
-        collapse.hide();
-      }
-    });
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href^='#']");
+    if (!link) {
+      return;
+    }
+
+    if (link.getAttribute("data-bs-toggle") === "modal") {
+      return;
+    }
+
+    var href = link.getAttribute("href");
+    if (!href || href === "#") {
+      return;
+    }
+
+    var target = document.querySelector(href);
+    if (!target) {
+      return;
+    }
+
+    if (!nav.classList.contains("show")) {
+      return;
+    }
+
+    event.preventDefault();
+
+    var onHidden = function () {
+      nav.removeEventListener("hidden.bs.collapse", onHidden);
+      scrollToHashTarget(target, href);
+    };
+
+    nav.addEventListener("hidden.bs.collapse", onHidden);
+    collapse.hide();
   });
+}
+
+function scrollToHashTarget(target, href) {
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  target.scrollIntoView({
+    behavior: prefersReduced ? "auto" : "smooth",
+    block: "start"
+  });
+
+  if (history.replaceState) {
+    history.replaceState(null, "", href);
+  }
+}
+
+function initAboutVideoFallback() {
+  var video = document.querySelector(".about__video");
+  if (!video) {
+    return;
+  }
+
+  var mp4Src = "assets/video/video_about_me.MP4";
+
+  function switchToMp4() {
+    if (video.getAttribute("data-fallback") === "mp4") {
+      return;
+    }
+
+    video.setAttribute("data-fallback", "mp4");
+    video.src = mp4Src;
+    video.load();
+
+    var playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(function () {});
+    }
+  }
+
+  video.addEventListener("error", switchToMp4);
 }
 
 function initGallerySlider() {

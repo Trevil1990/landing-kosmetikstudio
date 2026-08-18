@@ -26,6 +26,10 @@ html {
   scroll-behavior: smooth;
 }
 
+main > section {
+  scroll-margin-top: calc(var(--nav-height) + 0.5rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
