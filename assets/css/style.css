@@ -1135,6 +1135,80 @@ h3,
   color: color-mix(in srgb, var(--color-light) 82%, var(--color-dark));
 }
 
+/* —— Report error modal —— */
+.report-error-modal .modal-content {
+  color: var(--color-text);
+  background-color: var(--color-light);
+  border-color: color-mix(in srgb, var(--color-dark) 12%, transparent);
+  border-radius: 0.35rem;
+}
+
+.report-error-modal .modal-header,
+.report-error-modal .modal-footer {
+  border-color: color-mix(in srgb, var(--color-dark) 10%, transparent);
+}
+
+.report-error-modal .modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.report-error-modal #report-error-text {
+  margin-bottom: 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.report-error-modal .form-label {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-dark);
+}
+
+.report-error-modal .form-control {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  background-color: #fff;
+  border-color: color-mix(in srgb, var(--color-dark) 16%, transparent);
+  border-radius: 0.25rem;
+}
+
+.report-error-modal .form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
+}
+
+.report-error-modal .btn-primary {
+  --bs-btn-color: var(--color-light);
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-color: var(--color-light);
+  --bs-btn-hover-bg: var(--color-primary-hover);
+  --bs-btn-hover-border-color: var(--color-primary-hover);
+  --bs-btn-active-color: var(--color-light);
+  --bs-btn-active-bg: var(--color-primary-hover);
+  --bs-btn-active-border-color: var(--color-primary-hover);
+  border-radius: 0.25rem;
+}
+
+.report-error-modal__cancel {
+  color: var(--color-text);
+  background-color: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-dark) 22%, transparent);
+  border-radius: 0.25rem;
+}
+
+.report-error-modal__cancel:hover,
+.report-error-modal__cancel:focus {
+  color: var(--color-dark);
+  background-color: color-mix(in srgb, var(--color-dark) 6%, transparent);
+  border-color: var(--color-dark);
+}
+
 /* —— Legal pages —— */
 .legal-page {
   min-height: 100vh;
