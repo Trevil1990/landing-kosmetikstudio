@@ -186,8 +186,8 @@
               preload="metadata"
               aria-label="Vorstellung von Beauty Studio Versal"
             >
-              <source src="assets/video/video_about_me.webm" type="video/webm">
               <source src="assets/video/video_about_me.MP4" type="video/mp4">
+              <source src="assets/video/video_about_me.webm" type='video/webm; codecs="av01.0.05M.08"'>
             </video>
           </figure>
 
@@ -747,12 +747,63 @@
         <a href="legal/impressum.html">Impressum</a>
         ·
         <a href="legal/datenschutz.html">Datenschutz</a>
+        ·
+        <a
+          href="#report-error-modal"
+          data-bs-toggle="modal"
+          data-bs-target="#report-error-modal"
+        >Fehler melden</a>
       </p>
       <p class="site-footer__copy mb-0">
         © 2026 Beauty Studio Versal. Alle Rechte vorbehalten.
       </p>
     </div>
   </footer>
+
+  <div
+    class="modal fade report-error-modal"
+    id="report-error-modal"
+    tabindex="-1"
+    aria-labelledby="report-error-title"
+    aria-describedby="report-error-text"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="report-error-title">Fehler melden</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Schließen"
+          ></button>
+        </div>
+        <form id="report-error-form" novalidate>
+          <div class="modal-body">
+            <p id="report-error-text">
+              Haben Sie einen Fehler auf unserer Website gefunden? Beschreiben Sie kurz das Problem.
+            </p>
+            <label class="form-label" for="report-error-description">Beschreibung</label>
+            <textarea
+              class="form-control"
+              id="report-error-description"
+              name="description"
+              rows="5"
+              placeholder="Was funktioniert nicht?"
+              required
+            ></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn report-error-modal__cancel" data-bs-dismiss="modal">
+              Abbrechen
+            </button>
+            <button type="submit" class="btn btn-primary">Problem melden</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <script src="assets/js/bootstrap.bundle.js"></script>
   <script src="assets/js/main.js"></script>

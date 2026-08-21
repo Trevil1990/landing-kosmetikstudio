@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   initNavCloseOnNavigate();
+  initAboutVideoFallback();
   initGallerySlider();
+  initReportError();
 });
 
 function initNavCloseOnNavigate() {
@@ -11,13 +13,79 @@ function initNavCloseOnNavigate() {
 
   var collapse = bootstrap.Collapse.getOrCreateInstance(nav, { toggle: false });
 
-  nav.querySelectorAll(".nav-link").forEach(function (link) {
-    link.addEventListener("click", function () {
-      if (nav.classList.contains("show")) {
-        collapse.hide();
-      }
-    });
+  document.addEventListener("click", function (event) {
+    var link = event.target.closest("a[href^='#']");
+    if (!link) {
+      return;
+    }
+
+    if (link.getAttribute("data-bs-toggle") === "modal") {
+      return;
+    }
+
+    var href = link.getAttribute("href");
+    if (!href || href === "#") {
+      return;
+    }
+
+    var target = document.querySelector(href);
+    if (!target) {
+      return;
+    }
+
+    if (!nav.classList.contains("show")) {
+      return;
+    }
+
+    event.preventDefault();
+
+    var onHidden = function () {
+      nav.removeEventListener("hidden.bs.collapse", onHidden);
+      scrollToHashTarget(target, href);
+    };
+
+    nav.addEventListener("hidden.bs.collapse", onHidden);
+    collapse.hide();
   });
+}
+
+function scrollToHashTarget(target, href) {
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  target.scrollIntoView({
+    behavior: prefersReduced ? "auto" : "smooth",
+    block: "start"
+  });
+
+  if (history.replaceState) {
+    history.replaceState(null, "", href);
+  }
+}
+
+function initAboutVideoFallback() {
+  var video = document.querySelector(".about__video");
+  if (!video) {
+    return;
+  }
+
+  var mp4Src = "assets/video/video_about_me.MP4";
+
+  function switchToMp4() {
+    if (video.getAttribute("data-fallback") === "mp4") {
+      return;
+    }
+
+    video.setAttribute("data-fallback", "mp4");
+    video.src = mp4Src;
+    video.load();
+
+    var playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(function () {});
+    }
+  }
+
+  video.addEventListener("error", switchToMp4);
 }
 
 function initGallerySlider() {
@@ -154,4 +222,136 @@ function initGallerySlider() {
       rafId = window.requestAnimationFrame(tick);
     }
   });
+}
+
+function initReportError() {
+  var modalEl = document.getElementById("report-error-modal");
+  var form = document.getElementById("report-error-form");
+  var textarea = document.getElementById("report-error-description");
+
+  if (!modalEl || !form || !textarea) {
+    return;
+  }
+
+  var reportEmail = "kosmetik.suhl@gmail.com";
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var description = textarea.value.trim();
+    if (!description) {
+      textarea.setCustomValidity("Bitte beschreiben Sie das Problem.");
+      textarea.reportValidity();
+      return;
+    }
+
+    textarea.setCustomValidity("");
+    window.location.href = buildReportMailto(reportEmail, description);
+  });
+
+  textarea.addEventListener("input", function () {
+    textarea.setCustomValidity("");
+  });
+
+  modalEl.addEventListener("shown.bs.modal", function () {
+    textarea.focus();
+  });
+
+  modalEl.addEventListener("hidden.bs.modal", function () {
+    form.reset();
+    textarea.setCustomValidity("");
+  });
+}
+
+function buildReportMailto(email, description) {
+  var subject = "Fehler auf der Website";
+  var body = [
+    "Beschreibung:",
+    description,
+    "",
+    "URL:",
+    window.location.href,
+    "",
+    "Browser:",
+    detectBrowserName(),
+    "",
+    "OS:",
+    detectOsName(),
+    "",
+    "Screen:",
+    screen.width + " x " + screen.height,
+    "",
+    "Viewport:",
+    window.innerWidth + " x " + window.innerHeight,
+    "",
+    "User Agent:",
+    navigator.userAgent || "Unbekannt",
+    "",
+    "Zeit:",
+    new Date().toISOString()
+  ].join("\n");
+
+  return (
+    "mailto:" +
+    email +
+    "?subject=" +
+    encodeURIComponent(subject) +
+    "&body=" +
+    encodeURIComponent(body)
+  );
+}
+
+function detectBrowserName() {
+  var ua = navigator.userAgent || "";
+
+  if (/Edg\//.test(ua) || /EdgiOS/.test(ua)) {
+    return "Microsoft Edge";
+  }
+  if (/OPR\//.test(ua) || /OPiOS/.test(ua) || /Opera/.test(ua)) {
+    return "Opera";
+  }
+  if (/Firefox\//.test(ua) || /FxiOS/.test(ua)) {
+    return "Firefox";
+  }
+  if (/Chrome\//.test(ua) || /CriOS/.test(ua)) {
+    return "Chrome";
+  }
+  if (/Safari\//.test(ua)) {
+    return "Safari";
+  }
+
+  return "Unbekannt";
+}
+
+function detectOsName() {
+  var ua = navigator.userAgent || "";
+  var hintsPlatform = "";
+
+  if (navigator.userAgentData && navigator.userAgentData.platform) {
+    hintsPlatform = navigator.userAgentData.platform;
+  }
+
+  if (
+    /iPhone|iPad|iPod/.test(ua) ||
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)
+  ) {
+    return "iOS";
+  }
+  if (/Android/.test(ua) || /^Android$/i.test(hintsPlatform)) {
+    return "Android";
+  }
+  if (/Windows/.test(ua) || /^Win/i.test(hintsPlatform)) {
+    return "Windows";
+  }
+  if (/Mac OS X/.test(ua) || /^macOS$/i.test(hintsPlatform)) {
+    return "macOS";
+  }
+  if (/CrOS/.test(ua) || /^Chrome OS$/i.test(hintsPlatform)) {
+    return "Chrome OS";
+  }
+  if (/Linux/.test(ua) || /^Linux$/i.test(hintsPlatform)) {
+    return "Linux";
+  }
+
+  return hintsPlatform || "Unbekannt";
 }
