@@ -4,16 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beauty Studio Versal | Kosmetikstudio in Suhl</title>
-  <meta name="description" content="Beauty Studio Versal in Suhl: Maniküre, Pediküre, Gesichtsbehandlung, Massage und Kosmetik. Persönliche Beratung in entspannter Atmosphäre – Kirchgasse 7.">
+  <meta name="description" content="Beauty Studio Versal in Suhl: Maniküre & Pediküre, Kosmetik, Permanent Make-up sowie Biorevitalisierung & Mesotherapie. Termine direkt bei den Spezialistinnen – Kirchgasse 7.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Beauty Studio Versal">
   <meta name="geo.region" content="DE-TH">
   <meta name="geo.placename" content="Suhl">
   <meta name="theme-color" content="#825850">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("versal-theme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+        if (!stored) {
+          /* First visit: follow browser preference, then persist after toggle only. */
+        }
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
   <link rel="canonical" href="https://www.beautystudioversal.de/">
 
   <meta property="og:title" content="Beauty Studio Versal | Kosmetikstudio in Suhl">
-  <meta property="og:description" content="Beauty Studio Versal in Suhl: Maniküre, Pediküre, Gesichtsbehandlung, Massage und Kosmetik. Persönliche Beratung in entspannter Atmosphäre – Kirchgasse 7.">
+  <meta property="og:description" content="Beauty Studio Versal in Suhl: Maniküre & Pediküre, Kosmetik, Permanent Make-up sowie Biorevitalisierung & Mesotherapie. Termine direkt bei den Spezialistinnen – Kirchgasse 7.">
   <meta property="og:image" content="https://www.beautystudioversal.de/assets/images/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -25,7 +41,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Beauty Studio Versal | Kosmetikstudio in Suhl">
-  <meta name="twitter:description" content="Beauty Studio Versal in Suhl: Maniküre, Pediküre, Gesichtsbehandlung, Massage und Kosmetik. Persönliche Beratung in entspannter Atmosphäre – Kirchgasse 7.">
+  <meta name="twitter:description" content="Beauty Studio Versal in Suhl: Maniküre & Pediküre, Kosmetik, Permanent Make-up sowie Biorevitalisierung & Mesotherapie. Termine direkt bei den Spezialistinnen – Kirchgasse 7.">
   <meta name="twitter:image" content="https://www.beautystudioversal.de/assets/images/og-image.jpg">
 
   <script type="application/ld+json">
@@ -33,10 +49,9 @@
     "@context": "https://schema.org",
     "@type": "BeautySalon",
     "name": "Beauty Studio Versal",
-    "description": "Kosmetikstudio in Suhl für Maniküre, Pediküre, Gesichtsbehandlung, Gesichtsmassage, Körpermassage und Kosmetik.",
+    "description": "Kosmetikstudio in Suhl für Maniküre & Pediküre, kosmetische Behandlungen, Permanent Make-up sowie Biorevitalisierung & Mesotherapie.",
     "url": "https://www.beautystudioversal.de/",
     "image": "https://www.beautystudioversal.de/assets/images/og-image.jpg",
-    "telephone": "+4915226970677",
     "email": "kosmetik.suhl@gmail.com",
     "priceRange": "€€",
     "address": {
@@ -74,12 +89,10 @@
       "@type": "OfferCatalog",
       "name": "Leistungen",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maniküre" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pediküre" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gesichtsbehandlung" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gesichtsmassage" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Körpermassage" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kosmetik" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Maniküre & Pediküre" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kosmetische Behandlung" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Permanent Make-up" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Biorevitalisierung & Mesotherapie" } }
       ]
     }
   }
@@ -93,7 +106,6 @@
   <link rel="manifest" href="assets/images/favicon/site.webmanifest" />
   <link rel="stylesheet" href="assets/css/bootstrap.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="07e20020-88ff-4dad-904c-0dc1d95ca5b4"></script>
 </head>
 <body>
   <a class="visually-hidden-focusable skip-link" href="#main-content">Zum Inhalt springen</a>
@@ -105,17 +117,35 @@
           <span class="site-brand__mark">Beauty Studio Versal</span>
         </a>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#primaryNav"
-          aria-controls="primaryNav"
-          aria-expanded="false"
-          aria-label="Navigation öffnen"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="site-navbar__actions">
+          <button
+            type="button"
+            class="theme-toggle"
+            data-theme-toggle
+            aria-label="Dunklen Modus aktivieren"
+            aria-pressed="false"
+          >
+            <svg class="theme-toggle__icon theme-toggle__icon--moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5 7 7 0 0 0 20.5 14.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <svg class="theme-toggle__icon theme-toggle__icon--sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#primaryNav"
+            aria-controls="primaryNav"
+            aria-expanded="false"
+            aria-label="Navigation öffnen"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
 
         <div class="collapse navbar-collapse" id="primaryNav">
           <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
@@ -165,7 +195,7 @@
             </p>
             <div class="hero__actions">
               <a class="btn btn-primary btn-lg hero__cta" href="#contact">Jetzt Kontakt aufnehmen</a>
-              <a class="btn btn-lg hero__cta-secondary" href="tel:+4915226970677">Anrufen</a>
+              <a class="btn btn-lg hero__cta-secondary" href="#services">Leistungen ansehen</a>
             </div>
           </div>
         </div>
@@ -198,7 +228,7 @@
               Persönliche Betreuung, hochwertige Pflege und entspannte Atmosphäre – bei uns stehen Sie im Mittelpunkt.
             </p>
             <p class="about__text">
-              Kosmetik, Maniküre, Pediküre und Massagen – individuell auf Ihre Wünsche abgestimmt.
+              Kosmetik, Maniküre &amp; Pediküre, Permanent Make-up sowie ästhetische Behandlungen – individuell auf Ihre Wünsche abgestimmt.
             </p>
             <p class="about__text mb-0">
               Genießen Sie Ihre Auszeit und lassen Sie sich professionell verwöhnen.
@@ -212,11 +242,12 @@
       <div class="container">
         <h2 id="services-heading" class="section-heading">Unsere Leistungen</h2>
         <p class="services__intro">
-          Professionelle Behandlungen in unserem Kosmetikstudio in Suhl – für Ihre Schönheit und Ihr Wohlbefinden.
+          Vier Spezialistinnen – ein Studio. Jede arbeitet selbstständig in eigener Verantwortung.
+          Termine bitte direkt über die jeweilige Telefonnummer vereinbaren.
         </p>
 
         <div class="row g-4">
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <article class="card services-card h-100">
               <div class="card-body">
                 <span class="services-card__icon" aria-hidden="true">
@@ -225,32 +256,32 @@
                     <circle cx="14" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/>
                   </svg>
                 </span>
-                <h3 class="services-card__title card-title h5">Maniküre</h3>
-                <p class="services-card__text card-text mb-0">
-                  Perfekt gepflegte Nägel.
+                <h3 class="services-card__title card-title h5">Maniküre &amp; Pediküre</h3>
+                <p class="services-card__master">Alina Bibik</p>
+                <p class="services-card__text card-text">
+                  Professionelle Nagelpflege für Hände und Füße.
                 </p>
+                <div class="services-card__contact">
+                  <a class="services-card__phone" href="tel:+4915223934917">+49 152 23934917</a>
+                  <a
+                    class="contact-whatsapp"
+                    href="https://wa.me/4915223934917"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp an Alina Bibik"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                    </svg>
+                    <span class="contact-whatsapp__text">WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
 
-          <div class="col-12 col-md-6 col-lg-4">
-            <article class="card services-card h-100">
-              <div class="card-body">
-                <span class="services-card__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <ellipse cx="14" cy="16" rx="8" ry="5" stroke="currentColor" stroke-width="1.5"/>
-                    <path d="M14 6v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <h3 class="services-card__title card-title h5">Pediküre</h3>
-                <p class="services-card__text card-text mb-0">
-                  Professionelle Fußpflege.
-                </p>
-              </div>
-            </article>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <article class="card services-card h-100">
               <div class="card-body">
                 <span class="services-card__icon" aria-hidden="true">
@@ -259,32 +290,65 @@
                     <path d="M8 22c1.5-3 4-4.5 6-4.5S18.5 19 20 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                   </svg>
                 </span>
-                <h3 class="services-card__title card-title h5">Gesichtsbehandlung</h3>
-                <p class="services-card__text card-text mb-0">
-                  Strahlende und gesunde Haut.
+                <h3 class="services-card__title card-title h5">Kosmetische Behandlung</h3>
+                <p class="services-card__master">Oksana Lohvynenko</p>
+                <p class="services-card__text card-text">
+                  Gesichtspflege, kosmetische Behandlungen und Gesichtsmassage.
                 </p>
+                <div class="services-card__contact">
+                  <a class="services-card__phone" href="tel:+4915226970677">+49 1522 6970677</a>
+                  <a
+                    class="contact-whatsapp"
+                    href="https://wa.me/4915226970677"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp an Oksana Lohvynenko"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                    </svg>
+                    <span class="contact-whatsapp__text">WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
 
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <article class="card services-card h-100">
               <div class="card-body">
                 <span class="services-card__icon" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <circle cx="14" cy="11" r="5" stroke="currentColor" stroke-width="1.5"/>
-                    <path d="M9 18c1.2 1.5 2.8 2.5 5 2.5s3.8-1 5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M7 21L14 7l7 14H7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
                   </svg>
                 </span>
-                <h3 class="services-card__title card-title h5">Gesichtsmassage</h3>
-                <p class="services-card__text card-text mb-0">
-                  Entspannung für Gesicht und Seele.
+                <h3 class="services-card__title card-title h5">Permanent Make-up</h3>
+                <p class="services-card__master">Anna</p>
+                <p class="services-card__text card-text">
+                  Langanhaltende Akzente für einen gepflegten Ausdruck.
                 </p>
+                <div class="services-card__contact">
+                  <a class="services-card__phone" href="tel:+4916097705149">+49 160 97705149</a>
+                  <a
+                    class="contact-whatsapp"
+                    href="https://wa.me/4916097705149"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp an Anna"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                    </svg>
+                    <span class="contact-whatsapp__text">WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
 
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <article class="card services-card h-100">
               <div class="card-body">
                 <span class="services-card__icon" aria-hidden="true">
@@ -293,33 +357,34 @@
                     <path d="M10 13c1.2 1 2.5 1.5 4 1.5s2.8-.5 4-1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                   </svg>
                 </span>
-                <h3 class="services-card__title card-title h5">Körpermassage</h3>
-                <p class="services-card__text card-text mb-0">
-                  Neue Energie für Körper und Geist.
+                <h3 class="services-card__title card-title h5">Biorevitalisierung &amp; Mesotherapie</h3>
+                <p class="services-card__master">Tatiana Medetova</p>
+                <p class="services-card__text card-text">
+                  Ästhetische Behandlungen für frische, gepflegte Haut.
                 </p>
-              </div>
-            </article>
-          </div>
-
-          <div class="col-12 col-md-6 col-lg-4">
-            <article class="card services-card h-100">
-              <div class="card-body">
-                <span class="services-card__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <path d="M7 21L14 7l7 14H7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-                <h3 class="services-card__title card-title h5">Kosmetik</h3>
-                <p class="services-card__text card-text mb-0">
-                  Natürliche Schönheit unterstreichen.
-                </p>
+                <div class="services-card__contact">
+                  <a class="services-card__phone" href="tel:+4915226065470">+49 152 26065470</a>
+                  <a
+                    class="contact-whatsapp"
+                    href="https://wa.me/4915226065470"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="WhatsApp an Tatiana Medetova"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                      <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                    </svg>
+                    <span class="contact-whatsapp__text">WhatsApp</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
         </div>
 
         <p class="services__cta mb-0">
-          <a class="btn btn-lg services__cta-btn" href="#contact">Termin anfragen</a>
+          <a class="btn btn-lg services__cta-btn" href="#contact">Alle Kontakte</a>
         </p>
       </div>
     </section>
@@ -421,12 +486,12 @@
         <div class="gallery__header">
           <h2 id="gallery-heading" class="section-heading mb-0">Galerie</h2>
           <div class="gallery-slider__controls">
-            <button type="button" class="gallery-slider__btn" data-gallery-prev aria-label="Richtung nach links" aria-pressed="false">
+            <button type="button" class="gallery-slider__btn" data-gallery-prev aria-label="Vorheriges Bild">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M12.5 4.5L7 10l5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            <button type="button" class="gallery-slider__btn" data-gallery-next aria-label="Richtung nach rechts" aria-pressed="true">
+            <button type="button" class="gallery-slider__btn" data-gallery-next aria-label="Nächstes Bild">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                 <path d="M7.5 4.5L13 10l-5.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -506,7 +571,7 @@
             <img
               class="gallery-card__image"
               src="assets/images/prt_massage-01.webp"
-              alt="Massage mit heißen Steinen"
+              alt="Gesichtsmassage im Studio"
               width="800"
               height="1200"
               loading="lazy"
@@ -523,28 +588,94 @@
           <div class="col-lg-6">
             <h2 id="contact-heading" class="contact__title section-heading">Kontakt</h2>
             <p class="contact__intro">
-              Wir freuen uns auf Ihre Nachricht.
+              Jede Spezialistin arbeitet selbstständig. Termine bitte direkt bei der gewünschten Person vereinbaren.
             </p>
 
             <ul class="contact-list list-unstyled mb-4">
               <li class="contact-list__item">
-                <span class="contact-list__label">Telefon</span>
-                <div class="contact-list__row">
-                  <a class="contact-list__value" href="tel:+4915226970677">+49 1522 6970677</a>
-                  <a
-                    class="contact-whatsapp"
-                    href="https://wa.me/4915226970677"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="WhatsApp Nachricht senden"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                      <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
-                    </svg>
-                    <span class="contact-whatsapp__text">WhatsApp</span>
-                  </a>
-                </div>
+                <span class="contact-list__label">Termine</span>
+                <ul class="contact-masters list-unstyled mb-0">
+                  <li class="contact-masters__item">
+                    <span class="contact-masters__service">Maniküre &amp; Pediküre</span>
+                    <span class="contact-masters__name">Alina Bibik</span>
+                    <div class="contact-list__row">
+                      <a class="contact-list__value" href="tel:+4915223934917">+49 152 23934917</a>
+                      <a
+                        class="contact-whatsapp"
+                        href="https://wa.me/4915223934917"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="WhatsApp an Alina Bibik"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                          <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                        </svg>
+                        <span class="contact-whatsapp__text">WhatsApp</span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="contact-masters__item">
+                    <span class="contact-masters__service">Kosmetische Behandlung</span>
+                    <span class="contact-masters__name">Oksana Lohvynenko</span>
+                    <div class="contact-list__row">
+                      <a class="contact-list__value" href="tel:+4915226970677">+49 1522 6970677</a>
+                      <a
+                        class="contact-whatsapp"
+                        href="https://wa.me/4915226970677"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="WhatsApp an Oksana Lohvynenko"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                          <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                        </svg>
+                        <span class="contact-whatsapp__text">WhatsApp</span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="contact-masters__item">
+                    <span class="contact-masters__service">Permanent Make-up</span>
+                    <span class="contact-masters__name">Anna</span>
+                    <div class="contact-list__row">
+                      <a class="contact-list__value" href="tel:+4916097705149">+49 160 97705149</a>
+                      <a
+                        class="contact-whatsapp"
+                        href="https://wa.me/4916097705149"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="WhatsApp an Anna"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                          <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                        </svg>
+                        <span class="contact-whatsapp__text">WhatsApp</span>
+                      </a>
+                    </div>
+                  </li>
+                  <li class="contact-masters__item">
+                    <span class="contact-masters__service">Biorevitalisierung &amp; Mesotherapie</span>
+                    <span class="contact-masters__name">Tatiana Medetova</span>
+                    <div class="contact-list__row">
+                      <a class="contact-list__value" href="tel:+4915226065470">+49 152 26065470</a>
+                      <a
+                        class="contact-whatsapp"
+                        href="https://wa.me/4915226065470"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="WhatsApp an Tatiana Medetova"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                          <path d="M9.2 9.2c.3-.6.6-.6.8-.6h.6c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.4.5c-.1.1-.1.3 0 .4.4.7 1.1 1.4 1.8 1.8.1.1.3.1.4 0l.5-.4c.2-.1.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.6c0 .2 0 .5-.6.8-.5.3-1.2.5-1.9.2-1.7-.6-3.3-1.9-4.4-3.5-1-1.4-1.4-2.9-1.4-3.6 0-.4.2-.8.6-1z" fill="currentColor"/>
+                        </svg>
+                        <span class="contact-whatsapp__text">WhatsApp</span>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
               </li>
               <li class="contact-list__item">
                 <span class="contact-list__label">E-Mail</span>
@@ -689,18 +820,11 @@
           >Auf Google Maps öffnen</a>
         </p>
 
-        <div id="map-container" class="map-container">
-          <iframe
-            class="map-container__iframe"
-            src="https://maps.google.com/maps?q=Beauty%20Studio%20Versal%20Kirchgasse%207%20Suhl&z=15&output=embed"
-            title="Standort von Beauty Studio Versal auf Google Maps"
-            width="600"
-            height="450"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <div
+          id="map-container"
+          class="map-container"
+          data-map-src="https://maps.google.com/maps?q=Beauty%20Studio%20Versal%20Kirchgasse%207%20Suhl&z=15&output=embed"
+        ></div>
       </div>
     </section>
   </main>
@@ -710,7 +834,7 @@
       <div class="site-footer__top">
         <p class="site-footer__brand mb-0">Beauty Studio Versal</p>
         <p class="site-footer__meta mb-0">
-          <a href="tel:+4915226970677">+49 1522 6970677</a>
+          <a href="mailto:kosmetik.suhl@gmail.com">kosmetik.suhl@gmail.com</a>
           <span aria-hidden="true">·</span>
           <span>Kirchgasse 7, 98527 Suhl</span>
         </p>
@@ -807,6 +931,8 @@
   </div>
 
   <script src="assets/js/bootstrap.bundle.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/consent.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

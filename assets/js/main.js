@@ -116,8 +116,25 @@ function initGallerySlider() {
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     slider.classList.add("gallery-slider--static");
-    if (prevBtn) prevBtn.disabled = true;
-    if (nextBtn) nextBtn.disabled = true;
+
+    function scrollStatic(dir) {
+      var amount = (originals[0] ? originals[0].getBoundingClientRect().width : 240) + 16;
+      track.scrollBy({
+        left: dir === "reverse" ? -amount : amount,
+        behavior: "smooth"
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        scrollStatic("reverse");
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        scrollStatic("forward");
+      });
+    }
     return;
   }
 
@@ -127,6 +144,12 @@ function initGallerySlider() {
   var loopWidth = 0;
   var direction = 1;
   var paused = false;
+  var dragging = false;
+  var dragMoved = false;
+  var pointerId = null;
+  var dragStartX = 0;
+  var dragStartOffset = 0;
+  var resumeTimer = 0;
   var speedPxPerSec = 28;
   var lastTime = 0;
   var rafId = 0;
@@ -144,11 +167,59 @@ function initGallerySlider() {
     loopWidth = width + gap * originals.length;
   }
 
+  function normalizeOffset() {
+    if (loopWidth <= 0) {
+      return;
+    }
+
+    offset %= loopWidth;
+    if (offset < 0) {
+      offset += loopWidth;
+    }
+  }
+
+  function applyTransform() {
+    track.style.transform = "translate3d(" + -offset + "px, 0, 0)";
+  }
+
+  function stepSize() {
+    var styles = window.getComputedStyle(track);
+    var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+    var cardWidth = originals[0] ? originals[0].getBoundingClientRect().width : 0;
+    return cardWidth + gap;
+  }
+
+  function pauseForInteraction(resumeDelayMs) {
+    paused = true;
+    slider.classList.add("is-paused");
+    window.clearTimeout(resumeTimer);
+
+    if (typeof resumeDelayMs === "number") {
+      resumeTimer = window.setTimeout(function () {
+        if (!dragging) {
+          paused = false;
+          slider.classList.remove("is-paused");
+          lastTime = 0;
+        }
+      }, resumeDelayMs);
+    }
+  }
+
   function setDirection(dir) {
     direction = dir === "reverse" ? -1 : 1;
     slider.dataset.direction = direction === 1 ? "forward" : "reverse";
-    if (prevBtn) prevBtn.setAttribute("aria-pressed", direction === -1 ? "true" : "false");
-    if (nextBtn) nextBtn.setAttribute("aria-pressed", direction === 1 ? "true" : "false");
+  }
+
+  function stepBy(dir) {
+    if (loopWidth <= 0) {
+      measureLoopWidth();
+    }
+
+    setDirection(dir === "reverse" ? "reverse" : "forward");
+    offset += (dir === "reverse" ? -1 : 1) * stepSize();
+    normalizeOffset();
+    applyTransform();
+    pauseForInteraction(2200);
   }
 
   function tick(now) {
@@ -159,16 +230,10 @@ function initGallerySlider() {
     var delta = Math.min((now - lastTime) / 1000, 0.064);
     lastTime = now;
 
-    if (!paused && loopWidth > 0) {
+    if (!paused && !dragging && loopWidth > 0) {
       offset += direction * speedPxPerSec * delta;
-
-      if (offset >= loopWidth) {
-        offset -= loopWidth;
-      } else if (offset < 0) {
-        offset += loopWidth;
-      }
-
-      track.style.transform = "translate3d(" + -offset + "px, 0, 0)";
+      normalizeOffset();
+      applyTransform();
     }
 
     rafId = window.requestAnimationFrame(tick);
@@ -178,38 +243,102 @@ function initGallerySlider() {
     var progress = loopWidth > 0 ? offset / loopWidth : 0;
     measureLoopWidth();
     offset = progress * loopWidth;
-    track.style.transform = "translate3d(" + -offset + "px, 0, 0)";
+    normalizeOffset();
+    applyTransform();
+  }
+
+  function onPointerDown(event) {
+    if (event.pointerType === "mouse" && event.button !== 0) {
+      return;
+    }
+
+    dragging = true;
+    dragMoved = false;
+    pointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartOffset = offset;
+    pauseForInteraction();
+    slider.classList.add("is-dragging");
+    slider.setPointerCapture(event.pointerId);
+  }
+
+  function onPointerMove(event) {
+    if (!dragging || event.pointerId !== pointerId) {
+      return;
+    }
+
+    var deltaX = event.clientX - dragStartX;
+    if (Math.abs(deltaX) > 4) {
+      dragMoved = true;
+    }
+
+    offset = dragStartOffset - deltaX;
+    normalizeOffset();
+    applyTransform();
+  }
+
+  function onPointerUp(event) {
+    if (!dragging || event.pointerId !== pointerId) {
+      return;
+    }
+
+    dragging = false;
+    pointerId = null;
+    slider.classList.remove("is-dragging");
+
+    if (dragMoved) {
+      if (event.clientX < dragStartX) {
+        setDirection("forward");
+      } else if (event.clientX > dragStartX) {
+        setDirection("reverse");
+      }
+    }
+
+    pauseForInteraction(1800);
   }
 
   setDirection("forward");
   measureLoopWidth();
+  applyTransform();
   rafId = window.requestAnimationFrame(tick);
 
   if (prevBtn) {
     prevBtn.addEventListener("click", function () {
-      setDirection("reverse");
+      stepBy("reverse");
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener("click", function () {
-      setDirection("forward");
+      stepBy("forward");
     });
   }
 
+  slider.addEventListener("pointerdown", onPointerDown);
+  slider.addEventListener("pointermove", onPointerMove);
+  slider.addEventListener("pointerup", onPointerUp);
+  slider.addEventListener("pointercancel", onPointerUp);
+
   slider.addEventListener("pointerenter", function () {
-    paused = true;
+    if (!dragging) {
+      pauseForInteraction();
+    }
   });
   slider.addEventListener("pointerleave", function () {
-    paused = false;
-    lastTime = 0;
+    if (!dragging) {
+      pauseForInteraction(400);
+    }
   });
   slider.addEventListener("focusin", function () {
-    paused = true;
+    pauseForInteraction();
   });
   slider.addEventListener("focusout", function () {
-    paused = false;
-    lastTime = 0;
+    pauseForInteraction(600);
+  });
+
+  // Prevent image drag ghost while scrubbing.
+  track.addEventListener("dragstart", function (event) {
+    event.preventDefault();
   });
 
   window.addEventListener("resize", onResize);

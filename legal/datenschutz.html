@@ -13,16 +13,45 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicon/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Versal" />
   <link rel="manifest" href="../assets/images/favicon/site.webmanifest" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("versal-theme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="07e20020-88ff-4dad-904c-0dc1d95ca5b4"></script>
 </head>
 <body>
   <main class="legal-page">
     <div class="container legal-page__inner">
-      <p class="legal-page__back">
-        <a href="../index.html">← Zurück zur Startseite</a>
-      </p>
+      <div class="legal-page__toolbar">
+        <p class="legal-page__back">
+          <a href="../index.html">← Zurück zur Startseite</a>
+        </p>
+        <button
+          type="button"
+          class="theme-toggle"
+          data-theme-toggle
+          aria-label="Dunklen Modus aktivieren"
+          aria-pressed="false"
+        >
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5 7 7 0 0 0 20.5 14.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
 
       <h1 class="legal-page__title">Datenschutzerklärung</h1>
 
@@ -36,21 +65,23 @@
         </p>
         <p>
           Diese Website ist eine statische Präsentationsseite ohne eigenes Backend.
-          Zur Reichweitenmessung wird Umami Analytics eingesetzt (siehe Abschnitt&nbsp;5).
+          Zur Reichweitenmessung kann Umami Analytics nach Einwilligung eingesetzt
+          werden (siehe Abschnitt&nbsp;4). Google Maps wird ebenfalls erst nach
+          Einwilligung geladen (siehe Abschnitt&nbsp;9).
         </p>
       </section>
 
       <section class="legal-block" aria-labelledby="privacy-controller">
         <h2 id="privacy-controller">2. Verantwortliche Stelle</h2>
         <p>
-          Oksana Lohvynenko<br>
+          Alina Bibik<br>
           Beauty Studio Versal<br>
           Kirchgasse 7<br>
           98527 Suhl
         </p>
         <p>
-          Telefon / WhatsApp: <a href="tel:+4915226970677">+49 1522 6970677</a><br>
-          E-Mail: <a href="mailto:kosmetik.suhl@gmail.com">kosmetik.suhl@gmail.com</a>
+          Telefon: <a href="tel:+4915223934917">+49 152 23934917</a><br>
+          E-Mail: <a href="mailto:alinabibik95@gmail.com">alinabibik95@gmail.com</a>
         </p>
         <p>
           Die Angaben zur verantwortlichen Stelle entsprechen dem
@@ -89,10 +120,13 @@
       <section class="legal-block" aria-labelledby="privacy-umami">
         <h2 id="privacy-umami">4. Umami Analytics</h2>
         <p>
-          Wir nutzen Umami Cloud zur anonymisierten bzw. pseudonymisierten
-          Reichweitenanalyse
+          Wir nutzen Umami Cloud zur Reichweitenanalyse
           (Anbieter: Umami Software, Inc. / Umami Cloud,
           Script-Host: <code>cloud.umami.is</code>).
+        </p>
+        <p>
+          Das Analyse-Script wird erst nach Ihrer Einwilligung über den
+          Datenschutz-Banner geladen („Alle akzeptieren“).
         </p>
         <p>
           Dabei können insbesondere folgende Daten verarbeitet werden:
@@ -102,10 +136,10 @@
           setzt nach Angaben des Anbieters keine Cookies für das Tracking.
         </p>
         <p>
-          Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse
-          an der Analyse der Website-Nutzung zur Verbesserung unseres Angebots).
-          Soweit eine Einwilligung nach §&nbsp;25 Abs.&nbsp;1 TDDDG erforderlich sein sollte,
-          erfolgt die Verarbeitung auf Grundlage von Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO.
+          Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO i.&nbsp;V.&nbsp;m.
+          §&nbsp;25 Abs.&nbsp;1 TDDDG (Einwilligung). Die Einwilligung können Sie
+          jederzeit widerrufen, indem Sie Ihre Auswahl zurücksetzen
+          (<a href="#privacy-consent" data-consent-reset>Einstellungen zurücksetzen</a>).
         </p>
         <p>
           Beim Laden des Scripts wird eine Verbindung zu Servern von Umami
@@ -141,9 +175,12 @@
           Dabei öffnen sich die jeweiligen Programme bzw. Dienste auf Ihrem Gerät.
         </p>
         <p>
-          Wenn Sie uns per Telefon, E-Mail oder WhatsApp kontaktieren, verarbeiten
-          wir die von Ihnen mitgeteilten Daten (z.&nbsp;B. Name, Telefonnummer,
-          E-Mail-Adresse, Nachrichteninhalt) zur Bearbeitung Ihrer Anfrage.
+          Die Spezialistinnen im Studio arbeiten selbstständig. Wenn Sie eine
+          Spezialistin per Telefon oder WhatsApp kontaktieren, werden Ihre Angaben
+          von der jeweils kontaktierten Person zur Bearbeitung Ihrer Anfrage
+          verarbeitet. Allgemeine E-Mail-Anfragen an
+          <a href="mailto:kosmetik.suhl@gmail.com">kosmetik.suhl@gmail.com</a>
+          werden über die Studio-Adresse entgegengenommen.
         </p>
         <p>
           Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO (vorvertragliche /
@@ -159,20 +196,20 @@
       <section class="legal-block" aria-labelledby="privacy-whatsapp">
         <h2 id="privacy-whatsapp">7. WhatsApp</h2>
         <p>
-          Auf der Website befindet sich ein Link zu WhatsApp
+          Auf der Website befinden sich Links zu WhatsApp der jeweiligen Spezialistinnen
           (Anbieter: Meta Platforms Ireland Limited, Merrion Road, Dublin 4, D04 X2K5, Irland;
           Mutterkonzern ggf. Meta Platforms, Inc., USA).
         </p>
         <p>
-          Beim Anklicken des Links wird WhatsApp geöffnet. Dabei können Daten
+          Beim Anklicken eines Links wird WhatsApp geöffnet. Dabei können Daten
           an Meta übermittelt werden. Wir haben keinen Einfluss auf die weitere
           Datenverarbeitung durch WhatsApp/Meta.
         </p>
         <p>
-          Rechtsgrundlage für die Bereitstellung des Links: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO
+          Rechtsgrundlage für die Bereitstellung der Links: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO
           (berechtigtes Interesse an einer einfachen Kontaktmöglichkeit).
           Die Verarbeitung bei Nutzung von WhatsApp erfolgt in Ihrer Verantwortung
-          gegenüber Meta.
+          gegenüber Meta bzw. der kontaktierten Spezialistin.
         </p>
         <p>
           Weitere Informationen:
@@ -206,9 +243,16 @@
       <section class="legal-block" aria-labelledby="privacy-maps">
         <h2 id="privacy-maps">9. Google Maps</h2>
         <p>
-          Auf dieser Website ist ein Google-Maps-Embed eingebunden
+          Zur Darstellung unseres Standorts kann Google Maps eingebunden werden
           (Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland;
           Mutterkonzern: Google LLC, USA).
+        </p>
+        <p>
+          Die interaktive Karte wird erst nach Ihrer Einwilligung geladen
+          (über den Datenschutz-Banner „Alle akzeptieren“ oder über die Schaltfläche
+          „Karte laden“ im Kartenbereich). Bis dahin findet keine Verbindung zu
+          Google Maps über das Embed statt. Der Link „Auf Google Maps öffnen“
+          führt erst nach bewusstem Klick zu Google.
         </p>
         <p>
           Beim Laden der Karte wird eine Verbindung zu Servern von Google hergestellt.
@@ -217,10 +261,8 @@
           Google kann Cookies setzen oder vergleichbare Technologien verwenden.
         </p>
         <p>
-          Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse
-          an einer ansprechenden Darstellung unseres Standorts) bzw. – soweit eine
-          Einwilligung erforderlich ist – Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO i.&nbsp;V.&nbsp;m.
-          §&nbsp;25 Abs.&nbsp;1 TDDDG.
+          Rechtsgrundlage: Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;a DSGVO i.&nbsp;V.&nbsp;m.
+          §&nbsp;25 Abs.&nbsp;1 TDDDG (Einwilligung).
         </p>
         <p>
           Es kann eine Datenübermittlung in die USA erfolgen. Weitere Informationen:
@@ -248,19 +290,35 @@
         <h2 id="privacy-assets">11. Lokale Inhalte (CSS, JavaScript, Schriften, Medien)</h2>
         <p>
           Stylesheets, Bootstrap, Schriften, Bilder und Videos werden lokal
-          von dieser Website ausgeliefert. Zusätzlich wird das Umami-Script
-          von <code>cloud.umami.is</code> geladen (siehe Abschnitt&nbsp;4).
+          von dieser Website ausgeliefert. Das Umami-Script von
+          <code>cloud.umami.is</code> sowie Google Maps werden nur nach
+          Einwilligung geladen.
         </p>
       </section>
 
       <section class="legal-block" aria-labelledby="privacy-cookies">
-        <h2 id="privacy-cookies">12. Cookies</h2>
+        <h2 id="privacy-cookies">12. Cookies und Einwilligung</h2>
+        <p id="privacy-consent">
+          Beim ersten Besuch erscheint ein Datenschutz-Banner. Dort können Sie
+          „Alle akzeptieren“ (Umami Analytics und Google Maps) oder
+          „Nur notwendige“ wählen. Ihre Auswahl speichern wir lokal in Ihrem
+          Browser (<code>localStorage</code>), damit der Banner nicht bei jedem
+          Besuch erneut erscheint.
+        </p>
         <p>
           Wir setzen selbst keine Marketing-Cookies.
           Umami Analytics arbeitet nach Angaben des Anbieters ohne Cookies.
-          Beim Laden eingebetteter Drittanbieter-Inhalte (insbesondere Google Maps)
-          können jedoch Cookies oder ähnliche Technologien durch den Drittanbieter
-          gesetzt werden.
+          Beim Laden von Google Maps können Cookies oder ähnliche Technologien
+          durch Google gesetzt werden.
+        </p>
+        <p>
+          Einwilligungen können Sie jederzeit widerrufen:
+          <a href="#privacy-consent" data-consent-reset>Einstellungen zurücksetzen</a>.
+        </p>
+        <p>
+          Die Wahl von Hell-/Dunkelmodus speichern wir ebenfalls lokal in Ihrem
+          Browser (<code>localStorage</code>, Schlüssel <code>versal-theme</code>).
+          Dies dient nur der Darstellung und enthält keine Analyse-Daten.
         </p>
       </section>
 
@@ -323,12 +381,14 @@
           der Website. Stand: September 2026.
         </p>
         <p>
-          Werden später zusätzliche Werkzeuge eingeführt (z.&nbsp;B. Cookie-Banner,
-          Kontaktformular oder weitere Analyse-Tools), wird diese Erklärung
-          entsprechend aktualisiert.
+          Werden später zusätzliche Werkzeuge eingeführt (z.&nbsp;B. Kontaktformular
+          oder weitere Analyse-Tools), wird diese Erklärung entsprechend
+          aktualisiert.
         </p>
       </section>
     </div>
   </main>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/consent.js"></script>
 </body>
 </html>

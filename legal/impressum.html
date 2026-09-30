@@ -13,23 +13,52 @@
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/images/favicon/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-title" content="Versal" />
   <link rel="manifest" href="../assets/images/favicon/site.webmanifest" />
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("versal-theme");
+        var theme = stored === "light" || stored === "dark"
+          ? stored
+          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (error) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/css/style.css">
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="07e20020-88ff-4dad-904c-0dc1d95ca5b4"></script>
 </head>
 <body>
   <main class="legal-page">
     <div class="container legal-page__inner">
-      <p class="legal-page__back">
-        <a href="../index.html">← Zurück zur Startseite</a>
-      </p>
+      <div class="legal-page__toolbar">
+        <p class="legal-page__back">
+          <a href="../index.html">← Zurück zur Startseite</a>
+        </p>
+        <button
+          type="button"
+          class="theme-toggle"
+          data-theme-toggle
+          aria-label="Dunklen Modus aktivieren"
+          aria-pressed="false"
+        >
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5 7 7 0 0 0 20.5 14.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.1 5.1l1.6 1.6M17.3 17.3l1.6 1.6M18.9 5.1l-1.6 1.6M6.7 17.3l-1.6 1.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
 
       <h1 class="legal-page__title">Impressum</h1>
 
       <section class="legal-block" aria-labelledby="impressum-ddg">
         <h2 id="impressum-ddg">Angaben gemäß § 5 DDG</h2>
         <p>
-          Oksana Lohvynenko<br>
+          Alina Bibik<br>
           Beauty Studio Versal<br>
           Kirchgasse 7<br>
           98527 Suhl
@@ -39,8 +68,17 @@
       <section class="legal-block" aria-labelledby="impressum-kontakt">
         <h2 id="impressum-kontakt">Kontakt</h2>
         <p>
-          Telefon / WhatsApp: <a href="tel:+4915226970677">+49 1522 6970677</a><br>
-          E-Mail: <a href="mailto:kosmetik.suhl@gmail.com">kosmetik.suhl@gmail.com</a>
+          Telefon: <a href="tel:+4915223934917">+49 152 23934917</a><br>
+          E-Mail: <a href="mailto:alinabibik95@gmail.com">alinabibik95@gmail.com</a>
+        </p>
+      </section>
+
+      <section class="legal-block" aria-labelledby="impressum-studio">
+        <h2 id="impressum-studio">Hinweis zum Studio</h2>
+        <p>
+          Beauty Studio Versal ist ein gemeinsamer Standort mehrerer selbstständig
+          tätiger Spezialistinnen. Jede arbeitet in eigener Verantwortung.
+          Anbieterin dieser Website ist Alina Bibik.
         </p>
       </section>
 
@@ -65,5 +103,7 @@
       </section>
     </div>
   </main>
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/consent.js"></script>
 </body>
 </html>
