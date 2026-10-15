@@ -1358,6 +1358,102 @@ h3,
   color: color-mix(in srgb, var(--color-inverse-text) 82%, var(--color-inverse-bg));
 }
 
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+}
+
+/* —— Simple Kolo footer credit (v1, from simplekolo templates/footer-credit) ——
+   Footer is dark in both site themes, so the link uses data-sk-tone="dark". */
+.sk-credit {
+  --sk-acid: #7d9f1c; /* acid-700, for light footers */
+  --sk-acid-glow: rgba(125, 159, 28, 0.35);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sk-credit:not([data-sk-tone="light"]) {
+    --sk-acid: #c8f04a; /* acid-400, for dark footers */
+    --sk-acid-glow: rgba(200, 240, 74, 0.45);
+  }
+}
+
+.sk-credit[data-sk-tone="dark"] {
+  --sk-acid: #c8f04a;
+  --sk-acid-glow: rgba(200, 240, 74, 0.45);
+}
+
+.sk-credit[data-sk-tone="light"] {
+  --sk-acid: #7d9f1c;
+  --sk-acid-glow: rgba(125, 159, 28, 0.35);
+}
+
+.sk-credit__mark {
+  width: 1.25em;
+  height: 1.25em;
+  flex: none;
+  overflow: visible;
+}
+
+.sk-credit__ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+}
+
+.sk-credit__arc {
+  fill: none;
+  stroke: var(--sk-acid);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  transition: filter 200ms ease;
+}
+
+.sk-credit__name {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 200ms ease;
+}
+
+.sk-credit:hover .sk-credit__name,
+.sk-credit:focus-visible .sk-credit__name {
+  text-decoration-color: currentColor;
+}
+
+.sk-credit:hover .sk-credit__arc,
+.sk-credit:focus-visible .sk-credit__arc {
+  filter: drop-shadow(0 0 2px var(--sk-acid-glow));
+}
+
+.sk-credit:focus-visible {
+  outline: 2px solid var(--sk-acid);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-credit__arc,
+  .sk-credit__name {
+    transition: none;
+  }
+}
+
 /* —— Report error modal —— */
 .report-error-modal .modal-content {
   color: var(--color-text);
